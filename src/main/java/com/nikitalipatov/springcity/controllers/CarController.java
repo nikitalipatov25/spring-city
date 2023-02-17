@@ -2,9 +2,7 @@ package com.nikitalipatov.springcity.controllers;
 
 import com.nikitalipatov.springcity.contracts.CarService;
 import com.nikitalipatov.springcity.dtos.CarRecord;
-import com.nikitalipatov.springcity.dtos.PersonRecord;
 import com.nikitalipatov.springcity.models.Car;
-import com.nikitalipatov.springcity.models.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +26,17 @@ public class CarController {
         @ResponseStatus(value = HttpStatus.ACCEPTED)
         public List<Car> getAll() {
                 return carService.getAll();
+        }
+
+        @DeleteMapping(value = "/delete/{id}")
+        @ResponseStatus(value = HttpStatus.ACCEPTED)
+        public void delete(@PathVariable int id) {
+                carService.deleteCar(id);
+        }
+
+        @PutMapping(value = "/edit/{id}")
+        @ResponseStatus(value = HttpStatus.ACCEPTED)
+        public Car edit(@PathVariable int id, @RequestBody CarRecord carRecord) {
+                return carService.edit(id, carRecord);
         }
 }

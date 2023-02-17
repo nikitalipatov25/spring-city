@@ -2,12 +2,14 @@ package com.nikitalipatov.springcity.controllers;
 
 import com.nikitalipatov.springcity.contracts.PersonService;
 import com.nikitalipatov.springcity.dtos.PersonRecord;
+import com.nikitalipatov.springcity.models.Car;
 import com.nikitalipatov.springcity.models.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,6 +17,18 @@ import java.util.List;
 public class PersonController {
 
     private final PersonService personService;
+
+    @GetMapping(value = "/custom/{name}")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public List<Car> getAllByPersonName(@PathVariable String name) {
+        return personService.getAllByPersonName(name);
+    }
+
+    @GetMapping(value = "/custom/list/{c}")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public List<Person> getAllByChar(@PathVariable char c) {
+        return personService.getAllByChar(c);
+    }
 
     @GetMapping(value = "/list")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
@@ -40,16 +54,21 @@ public class PersonController {
         return personService.addCar(id, gosNumber);
     }
 
+    @PutMapping(value = "/add/{pid}/house/{hid}")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public Person addHouse(@PathVariable int pid, @PathVariable int hid) {
+        return personService.addHouse(pid, hid);
+    }
+
     @PutMapping(value = "/edit/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public Person edit(@PathVariable int id, @RequestBody PersonRecord personRecord) {
-//        что можно менять: фио, возраст, в паспорте все
-        return null;
+        return personService.edit(id, personRecord);
     }
 
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void delete(@PathVariable int id) {
-        //При удалении жителя удаляются его паспорт и машины, обновляются списки хозяев домов (обернуть в транзакцию).
+        personService.delete(id);
     }
 }

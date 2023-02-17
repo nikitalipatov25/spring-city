@@ -21,4 +21,9 @@ public class House {
     private String street;
     private String number;
 
+    public House(String city, String street, String number) {
+        this.city = city;
+        this.street = street;
+        this.number = number;
+    }
 }
