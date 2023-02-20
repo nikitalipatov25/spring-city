@@ -1,13 +1,12 @@
-package com.nikitalipatov.springcity.services;
+package com.nikitalipatov.springcity.services.impl;
 
-import com.nikitalipatov.springcity.contracts.PassportService;
+import com.nikitalipatov.springcity.services.PassportService;
 import com.nikitalipatov.springcity.dtos.PassportRecord;
 import com.nikitalipatov.springcity.models.Passport;
 import com.nikitalipatov.springcity.repos.PassportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Service

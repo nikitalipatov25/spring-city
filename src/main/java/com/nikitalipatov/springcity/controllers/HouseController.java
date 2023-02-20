@@ -1,6 +1,6 @@
 package com.nikitalipatov.springcity.controllers;
 
-import com.nikitalipatov.springcity.contracts.HouseService;
+import com.nikitalipatov.springcity.services.HouseService;
 import com.nikitalipatov.springcity.dtos.HouseRecord;
 import com.nikitalipatov.springcity.models.House;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +30,8 @@ public class HouseController {
 
     @DeleteMapping(value = "/delete/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public HttpStatus delete(@PathVariable int id) {
-        return houseService.delete(id);
+    public void delete(@PathVariable int id) {
+        houseService.delete(id);
     }
 
     @PutMapping(value = "/edit/{id}")

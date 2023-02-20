@@ -1,4 +1,4 @@
-package com.nikitalipatov.springcity.contracts;
+package com.nikitalipatov.springcity.services;
 
 import com.nikitalipatov.springcity.dtos.PassportRecord;
 import com.nikitalipatov.springcity.models.Passport;

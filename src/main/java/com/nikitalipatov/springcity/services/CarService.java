@@ -1,8 +1,7 @@
-package com.nikitalipatov.springcity.contracts;
+package com.nikitalipatov.springcity.services;
 
 import com.nikitalipatov.springcity.dtos.CarRecord;
 import com.nikitalipatov.springcity.models.Car;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +15,11 @@ public interface CarService {
 
     Car create(CarRecord carRecord);
 
-    void delete(Set<Car> cars);
+    void delete(List<Integer> carIds);
 
-    HttpStatus deleteCar(int id);
+    void deleteCar(int id);
 
     Car edit(int id, CarRecord carRecord);
+
+    Car getCar(int carId);
 }

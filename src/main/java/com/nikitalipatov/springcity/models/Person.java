@@ -8,12 +8,12 @@ import lombok.Setter;
 
 import java.util.Set;
 
-@NamedNativeQuery(name = "Person.findByFullName",
-        query = "SELECT car.id, car. color, car.model, car.gos_number " +
-                "FROM car_person " +
-                "JOIN car ON car.id = car_person.c_id " +
-                "JOIN person ON person.id = car_person.p_id " +
-                "WHERE person.full_name = ?1")
+//@NamedNativeQuery(name = "Person.findByFullName",
+//        query = "SELECT car.id, car. color, car.model, car.gos_number " +
+//                "FROM car_person " +
+//                "JOIN car ON car.id = car_person.c_id " +
+//                "JOIN person ON person.id = car_person.p_id " +
+//                "WHERE person.full_name = ?1")
 @Entity
 @Table(name ="person")
 @AllArgsConstructor

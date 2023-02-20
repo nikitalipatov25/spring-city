@@ -1,6 +1,5 @@
 package com.nikitalipatov.springcity.models;
 
-import com.nikitalipatov.springcity.keys.PassportId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -23,15 +23,15 @@ public class ControllerExceptionHandler {
         return message;
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                new Date(),
-                ex.getMessage(),
-                request.getDescription(false));
-
-        return message;
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
+//        ErrorMessage message = new ErrorMessage(
+//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                new Date(),
+//                ex.getMessage(),
+//                request.getDescription(false));
+//
+//        return message;
+//    }
 }
