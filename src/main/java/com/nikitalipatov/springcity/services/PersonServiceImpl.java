@@ -4,31 +4,21 @@ import com.nikitalipatov.springcity.contracts.CarService;
 import com.nikitalipatov.springcity.contracts.HouseService;
 import com.nikitalipatov.springcity.contracts.PassportService;
 import com.nikitalipatov.springcity.contracts.PersonService;
-import com.nikitalipatov.springcity.dtos.PassportRecord;
 import com.nikitalipatov.springcity.dtos.PersonRecord;
 import com.nikitalipatov.springcity.exeptions.ResourceNotFoundException;
 import com.nikitalipatov.springcity.models.Car;
 import com.nikitalipatov.springcity.models.House;
 import com.nikitalipatov.springcity.models.Passport;
 import com.nikitalipatov.springcity.models.Person;
-import com.nikitalipatov.springcity.repos.CarRepository;
 import com.nikitalipatov.springcity.repos.PersonRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Cache;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Queue;
 import java.util.Set;
 
 @Service
@@ -48,15 +38,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Car> getAllByPersonName(String name) {
-        var result = entityManager.createNamedQuery("Person.findByFullName");
-        var a = result.getResultList();
-        System.out.println(a.toString());
-        System.out.println(result);
-        for (int i = 0; i < a.size(); i++) {
-            System.out.println(a.get(i));
-        }
-        return null;
+    public List getAllByPersonName(String name) {
+        var result = entityManager.createNamedQuery("Person.findByFullName")
+                .setParameter(1, name)
+                .getResultList();
+        return result;
     }
 
     @Override

@@ -8,11 +8,12 @@ import lombok.Setter;
 
 import java.util.Set;
 
-@NamedNativeQuery(name = "Person.findByFullName", query = "SELECT * FROM person INNER JOIN car ON person.id = car.id")
-
-//@NamedQuery(name = "Person_FindAllByFullName",
-//        query = "SELECT distinct FROM car_person WHERE p_id=1")
-//c1_0.p_id,c1_1.id,c1_1.color,c1_1.gos_number,c1_1.model,c1_1.name,c1_1.type from car_person c1_0 join car c1_1 on c1_1.id=c1_0.c_id where c1_0.p_id=?
+@NamedNativeQuery(name = "Person.findByFullName",
+        query = "SELECT car.id, car. color, car.model, car.gos_number " +
+                "FROM car_person " +
+                "JOIN car ON car.id = car_person.c_id " +
+                "JOIN person ON person.id = car_person.p_id " +
+                "WHERE person.full_name = ?1")
 @Entity
 @Table(name ="person")
 @AllArgsConstructor

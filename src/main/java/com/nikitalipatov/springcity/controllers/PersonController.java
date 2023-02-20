@@ -20,7 +20,7 @@ public class PersonController {
 
     @GetMapping(value = "/custom/{name}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public List<Car> getAllByPersonName(@PathVariable String name) {
+    public List getAllByPersonName(@PathVariable String name) {
         return personService.getAllByPersonName(name);
     }
 

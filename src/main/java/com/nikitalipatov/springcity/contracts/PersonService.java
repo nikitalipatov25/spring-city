@@ -25,7 +25,7 @@ public interface PersonService {
 
     Person edit(int id, PersonRecord personRecord);
 
-    List<Car> getAllByPersonName(String name);
+    List getAllByPersonName(String name);
     List<Person> getAllByChar(char c);
 
 //    void removeFromHouse(int id);
