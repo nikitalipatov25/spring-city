@@ -1,5 +1,6 @@
 package com.nikitalipatov.springcity.controllers;
 
+import com.nikitalipatov.springcity.dtos.CarRecord;
 import com.nikitalipatov.springcity.services.PersonService;
 import com.nikitalipatov.springcity.dtos.PersonRecord;
 import com.nikitalipatov.springcity.dtos.PersonDto;
@@ -25,7 +26,7 @@ public class PersonController {
     @GetMapping(value = "/custom/{name}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public List<PersonDto> getAllByPersonName(@PathVariable String name) {
-        return personService.getAllByPersonName(name);
+        return personService.getAllCarsByPersonName(name);
     }
 
     @GetMapping(value = "/custom/list/{personName}")
@@ -50,12 +51,6 @@ public class PersonController {
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public PersonDto create(@RequestBody PersonRecord personRecord) {
         return personService.create(personRecord);
-    }
-
-    @PutMapping(value = "/add/{personId}/car/{carId}")
-    @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public PersonDto addCar(@PathVariable int personId, @PathVariable int carId) {
-        return personService.addCar(personId, carId);
     }
 
     @PutMapping(value = "/add/{pid}/house/{hid}")

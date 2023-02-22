@@ -1,25 +1,22 @@
 package com.nikitalipatov.springcity.services;
 
+import com.nikitalipatov.springcity.dtos.CarDto;
 import com.nikitalipatov.springcity.dtos.CarRecord;
 import com.nikitalipatov.springcity.models.Car;
+import com.nikitalipatov.springcity.models.Person;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
 
 public interface CarService {
 
-    List<Car> getAll();
+    List<CarDto> getAll();
 
-    Optional<Car> getByGosNumber(String gosNumber);
+    CarDto create(int personId, CarRecord carRecord);
 
-    Car create(CarRecord carRecord);
+    void deleteCar(int carId);
 
-    void delete(List<Integer> carIds);
-
-    void deleteCar(int id);
-
-    Car edit(int id, CarRecord carRecord);
+    CarDto edit(int carId, CarRecord carRecord);
 
     Car getCar(int carId);
 }

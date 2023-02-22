@@ -1,8 +1,8 @@
 package com.nikitalipatov.springcity.controllers;
 
-import com.nikitalipatov.springcity.services.HouseService;
+import com.nikitalipatov.springcity.dtos.HouseDto;
 import com.nikitalipatov.springcity.dtos.HouseRecord;
-import com.nikitalipatov.springcity.models.House;
+import com.nikitalipatov.springcity.services.HouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +18,13 @@ public class HouseController {
 
     @GetMapping(value = "/list")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public List<House> getAll() {
+    public List<HouseDto> getAll() {
         return houseService.getAll();
     }
 
     @PostMapping(value = "/create")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public House create(@RequestBody HouseRecord houseRecord) {
+    public HouseDto create(@RequestBody HouseRecord houseRecord) {
         return houseService.create(houseRecord);
     }
 
@@ -36,7 +36,7 @@ public class HouseController {
 
     @PutMapping(value = "/edit/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public House edit(@PathVariable int id, @RequestBody HouseRecord houseRecord) {
+    public HouseDto edit(@PathVariable int id, @RequestBody HouseRecord houseRecord) {
         return houseService.edit(id, houseRecord);
     }
 }

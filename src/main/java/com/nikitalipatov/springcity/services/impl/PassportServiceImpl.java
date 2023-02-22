@@ -1,13 +1,12 @@
 package com.nikitalipatov.springcity.services.impl;
 
-import com.nikitalipatov.springcity.services.PassportService;
 import com.nikitalipatov.springcity.dtos.PassportRecord;
+import com.nikitalipatov.springcity.exeptions.ResourceNotFoundException;
 import com.nikitalipatov.springcity.models.Passport;
 import com.nikitalipatov.springcity.repos.PassportRepository;
+import com.nikitalipatov.springcity.services.PassportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +24,14 @@ public class PassportServiceImpl implements PassportService {
     }
 
     @Override
-    public void delete(int id) {
-        Optional<Passport> passport = passportRepository.findById(id);
-        passportRepository.delete(passport.get());
+    public void delete(int passportId) {
+        var passport =getPassport(passportId);
+        passportRepository.delete(passport);
+    }
+
+    public Passport getPassport(int passportId) {
+        return passportRepository.findById(passportId).orElseThrow(
+                () -> new ResourceNotFoundException("No such passport with id " + passportId)
+        );
     }
 }

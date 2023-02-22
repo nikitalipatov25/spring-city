@@ -1,7 +1,7 @@
 package com.nikitalipatov.springcity.controllers;
 
+import com.nikitalipatov.springcity.dtos.CarDto;
 import com.nikitalipatov.springcity.dtos.CarRecord;
-import com.nikitalipatov.springcity.models.Car;
 import com.nikitalipatov.springcity.services.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,15 +16,15 @@ public class CarController {
 
     private final CarService carService;
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/create/{userId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public Car create(@RequestBody CarRecord carRecord) {
-        return carService.create(carRecord);
+    public CarDto create(@PathVariable int userId, @RequestBody CarRecord carRecord) {
+        return carService.create(userId, carRecord);
     }
 
     @GetMapping(value = "/list")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public List<Car> getAll() {
+    public List<CarDto> getAll() {
         return carService.getAll();
     }
 
@@ -36,7 +36,7 @@ public class CarController {
 
     @PutMapping(value = "/edit/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public Car edit(@PathVariable int id, @RequestBody CarRecord carRecord) {
+    public CarDto edit(@PathVariable int id, @RequestBody CarRecord carRecord) {
         return carService.edit(id, carRecord);
     }
 }

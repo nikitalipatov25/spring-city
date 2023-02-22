@@ -27,7 +27,7 @@ public class Person {
     private int id;
     private String fullName;
     private int age;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Passport passport;
     @ManyToMany()
     @JoinTable(name = "house_person",
@@ -35,11 +35,7 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "h_id")
     )
     private Set<House> house;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "car_person",
-            joinColumns = @JoinColumn(name = "p_id"),
-            inverseJoinColumns = @JoinColumn(name = "c_id")
-    )
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Car> car;
 
     public Person(String fullName, int age, Passport passport) {

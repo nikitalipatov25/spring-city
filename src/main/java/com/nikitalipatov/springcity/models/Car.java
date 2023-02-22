@@ -1,10 +1,7 @@
 package com.nikitalipatov.springcity.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "car")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder(toBuilder = true)
 public class Car {
 
     @Id
@@ -22,6 +20,9 @@ public class Car {
     private String name;
     private String type;
     private String color;
+    @ManyToOne()
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
     public Car(String gosNumber, String model, String name, String type, String color) {
         this.gosNumber = gosNumber;

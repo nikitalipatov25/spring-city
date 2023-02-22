@@ -14,15 +14,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonConverter {
 
+    private final CarConverter carConverter;
+    private final HouseConverter houseConverter;
 
     public PersonDto toDto(Person person) {
         return PersonDto.builder()
                 .name(person.getFullName())
                 .number(person.getPassport().getNumber())
                 .serial(person.getPassport().getSerial())
+                .sex(person.getPassport().getSex())
                 .age(person.getAge())
-                .car(person.getCar())
-                .house(person.getHouse())
+                .car(person.getCar() != null ? carConverter.toDto(person.getCar().stream().toList()) : null)
+                .house(person.getHouse() != null ? houseConverter.toDto(person.getHouse().stream().toList()) : null)
                 .build();
     }
 
@@ -34,7 +37,7 @@ public class PersonConverter {
         return persons;
     }
 
-    public Person edit(Person person, PersonRecord personRecord) {
+    public Person toEntity(Person person, PersonRecord personRecord) {
         person.setFullName(personRecord.fullName());
         person.setAge(personRecord.age());
 

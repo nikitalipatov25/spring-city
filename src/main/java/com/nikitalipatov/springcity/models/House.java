@@ -1,12 +1,7 @@
 package com.nikitalipatov.springcity.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Set;
+import lombok.*;
 
 @Entity
 @Table(name = "house")
@@ -14,6 +9,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder(toBuilder = true)
 public class House {
 
     @Id

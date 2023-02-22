@@ -1,7 +1,8 @@
 package com.nikitalipatov.springcity.services.impl;
 
+import com.nikitalipatov.springcity.converters.CarConverter;
 import com.nikitalipatov.springcity.converters.PersonConverter;
-import com.nikitalipatov.springcity.dtos.PersonCarDTO;
+import com.nikitalipatov.springcity.dtos.CarRecord;
 import com.nikitalipatov.springcity.dtos.PersonDto;
 import com.nikitalipatov.springcity.dtos.PersonRecord;
 import com.nikitalipatov.springcity.exeptions.ResourceNotFoundException;
@@ -11,18 +12,13 @@ import com.nikitalipatov.springcity.services.CarService;
 import com.nikitalipatov.springcity.services.HouseService;
 import com.nikitalipatov.springcity.services.PassportService;
 import com.nikitalipatov.springcity.services.PersonService;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Query;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,8 +45,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<PersonDto> getAllByPersonName(String name) {
-        var result = personRepository.findCarsByFullName(name);
+    public List<PersonDto> getAllCarsByPersonName(String personName) {
+        var result = personRepository.findCarsByFullName(personName);
         List<PersonDto> personCarDTOS = new ArrayList<>();
         for (Person person : result) {
             personCarDTOS.add(converter.toDto(person));
@@ -60,7 +56,6 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<PersonDto> getAll() {
-        converter.toDto(personRepository.findAll());
          return converter.toDto(personRepository.findAll());
     }
 
@@ -79,42 +74,35 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto addCar(int personId, int carId) {
+    @Transactional
+    public PersonDto addHouse(int personId, int houseId) {
         Person person = getPerson(personId);
-        Car car = carService.getCar(carId);
-        Set<Car> personCars = person.getCar();
-        personCars.add(car);
-        person.setCar(personCars);
+        House house = houseService.getHouse(houseId);
+        Set<House> personHouses = person.getHouse();
+        personHouses.add(house);
+        person.setHouse(personHouses);
         return converter.toDto(personRepository.save(person));
     }
 
     @Override
-    public PersonDto addHouse(int personId, int houseId) {
-        Person person = getPerson(personId);
-        House house = houseService.getHouse(houseId);
-        Set<House> houses = person.getHouse();
-        houses.add(house);
-        person.setHouse(houses);
-        return converter.toDto(personRepository.save(person));
-    }
-
+    @Transactional
     public void delete(int personId) {
         Person person = getPerson(personId);
-        passportService.delete(person.getId());
-        carService.delete(person.getCar().stream().map(Car::getId).collect(Collectors.toList()));
+        passportService.delete(personId);
         person.setHouse(null);
-        personRepository.delete(person);
+        personRepository.deleteById(personId);
     }
 
+    @Override
+    @Transactional
     public PersonDto edit(int personId, PersonRecord personRecord) {
         Person person = getPerson(personId);
-        var result = converter.edit(person, personRecord);
-        return converter.toDto(personRepository.save(result));
+        return converter.toDto(personRepository.save(converter.toEntity(person, personRecord)));
     }
 
     private Person getPerson(int personId) {
         return personRepository.findById(personId).orElseThrow(
-                () -> new ResourceNotFoundException("No such car with id " + personId)
+                () -> new ResourceNotFoundException("No such person with id " + personId)
         );
     }
 }
