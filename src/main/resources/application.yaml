@@ -11,11 +11,21 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
+logging:
+  level:
+    org:
+      hibernate:
+        SQL:
+          debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder:
+                trace
 
 
 
