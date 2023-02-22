@@ -4,6 +4,8 @@
 #    context-path: /zoo
 
 spring:
+  liquibase:
+    enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/spring-city
@@ -11,21 +13,22 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: none
+    show-sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-logging:
-  level:
-    org:
-      hibernate:
-        SQL:
-          debug
-        type:
-          descriptor:
-            sql:
-              BasicBinder:
-                trace
+    generate-ddl: false
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL:
+#          debug
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder:
+#                trace
 
 
 
