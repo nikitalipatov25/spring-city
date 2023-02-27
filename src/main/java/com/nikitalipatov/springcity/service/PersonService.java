@@ -1,6 +1,7 @@
 package com.nikitalipatov.springcity.service;
 
 import com.nikitalipatov.springcity.dto.*;
+import com.nikitalipatov.springcity.model.Person;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public interface PersonService {
     List<PersonHouseDto> findAllByStreet(String street);
 
     List<PersonHouseDto> getHousesByPersonName(String personName);
+
+    Person getPerson(int personId);
 
 
 }

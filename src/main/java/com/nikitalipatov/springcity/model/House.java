@@ -13,7 +13,8 @@ import lombok.*;
 public class House {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "house_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "house_seq")
     private int id;
     private String city;
     private String street;

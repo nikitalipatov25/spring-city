@@ -5,19 +5,19 @@
 
 spring:
   liquibase:
-    enabled: true
+    enabled: false
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/spring-city
+    url: jdbc:postgresql://localhost:5432/spring-city-mig
     username: postgres
     password: root
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: false
+      ddl-auto: create-drop
+    show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    generate-ddl: false
+    generate-ddl: true
 #logging:
 #  level:
 #    org:

@@ -3,6 +3,7 @@ package com.nikitalipatov.springcity.converter;
 import com.nikitalipatov.springcity.dto.CarDto;
 import com.nikitalipatov.springcity.dto.CarRecord;
 import com.nikitalipatov.springcity.model.Car;
+import com.nikitalipatov.springcity.model.CarShop;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,6 +19,21 @@ public class CarConverter {
                 .name(carRecord.name())
                 .gosNumber(carRecord.gosNumber())
                 .model(carRecord.model())
+                .price(carRecord.price())
+                .type(carRecord.type())
+                .build();
+    }
+
+    public Car toEntity(Car car, CarRecord carRecord, CarShop carShop) {
+        return car.toBuilder()
+                .color(carRecord.color())
+                .model(carRecord.model())
+                .name(carRecord.name())
+                .gosNumber(carRecord.gosNumber())
+                .model(carRecord.model())
+                .price(carRecord.price())
+                .type(carRecord.type())
+                .carShop(carShop)
                 .build();
     }
 
@@ -28,6 +44,7 @@ public class CarConverter {
                 .color(car.getColor())
                 .model(car.getModel())
                 .type(car.getType())
+                .price(car.getPrice())
                 .build();
     }
 
@@ -37,5 +54,10 @@ public class CarConverter {
             cars.add(toDto(car));
         }
         return cars;
+    }
+
+
+    public Car toEntityForShop(CarRecord carRecord) {
+        return new Car(carRecord.gosNumber(), carRecord.model(), carRecord.name(), carRecord.type(), carRecord.color(), carRecord.price());
     }
 }

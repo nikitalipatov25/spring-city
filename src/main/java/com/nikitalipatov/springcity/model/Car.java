@@ -16,18 +16,33 @@ import org.hibernate.annotations.FetchMode;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "car_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "car_seq")
     private int id;
+
     private String gosNumber;
+
     private String model;
+
     private String name;
+
     private String type;
+
     private String color;
+
+    private double price;
+
     @ManyToOne()
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "person_id")
     @Fetch(FetchMode.SELECT)
     @BatchSize(size = 10)
     private Person person;
+
+    @ManyToOne()
+    @JoinColumn(name = "shop_id")
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 10)
+    private CarShop carShop;
 
     public Car(String gosNumber, String model, String name, String type, String color) {
         this.gosNumber = gosNumber;
@@ -35,5 +50,14 @@ public class Car {
         this.name = name;
         this.type = type;
         this.color = color;
+    }
+
+    public Car(String gosNumber, String model, String name, String type, String color, double price) {
+        this.gosNumber = gosNumber;
+        this.model = model;
+        this.name = name;
+        this.type = type;
+        this.color = color;
+        this.price = price;
     }
 }

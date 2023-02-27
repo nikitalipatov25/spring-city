@@ -1,5 +1,6 @@
 package com.nikitalipatov.springcity.dto;
 
+import com.nikitalipatov.springcity.model.Bank;
 import lombok.*;
 
 import java.util.List;
@@ -17,4 +18,5 @@ public class PersonDto {
     private int number;
     private List<CarDto> car;
     private List<HouseDto> house;
+    private List<BankDto> bank;
 }

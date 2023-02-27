@@ -15,6 +15,7 @@ public class PersonConverter {
 
     private final CarConverter carConverter;
     private final HouseConverter houseConverter;
+    private final BankConverter bankConverter;
 
     public PersonDto toDto(Person person) {
         return PersonDto.builder()
@@ -25,6 +26,7 @@ public class PersonConverter {
                 .age(person.getAge())
                 .car(person.getCar() != null ? carConverter.toDto(person.getCar().stream().toList()) : null)
                 .house(person.getHouse() != null ? houseConverter.toDto(person.getHouse().stream().toList()) : null)
+                .bank(person.getBank() != null ? bankConverter.toDto(person.getBank().stream().toList()) : null)
                 .build();
     }
 

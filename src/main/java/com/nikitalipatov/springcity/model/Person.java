@@ -26,7 +26,8 @@ import java.util.Set;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "person_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
     private int id;
 
     private String fullName;
@@ -38,8 +39,8 @@ public class Person {
 
     @ManyToMany()
     @JoinTable(name = "house_person",
-            joinColumns = @JoinColumn(name = "p_id"),
-            inverseJoinColumns = @JoinColumn(name = "h_id")
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "house_id")
     )
     @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 10)
@@ -48,6 +49,10 @@ public class Person {
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     private Set<Car> car;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<Bank> bank;
 
     public Person(String fullName, int age, Passport passport) {
         this.fullName = fullName;

@@ -14,4 +14,5 @@ public class CarDto {
     private String name;
     private String type;
     private String color;
+    private double price;
 }

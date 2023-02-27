@@ -96,7 +96,8 @@ public class PersonServiceImpl implements PersonService {
         return converter.toDto(personRepository.save(converter.toEntity(person, personRecord)));
     }
 
-    private Person getPerson(int personId) {
+    @Override
+    public Person getPerson(int personId) {
         return personRepository.findById(personId).orElseThrow(
                 () -> new ResourceNotFoundException("No such person with id " + personId)
         );

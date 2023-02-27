@@ -16,7 +16,8 @@ import java.util.Date;
 @Setter
 public class Passport {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "passport_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passport_seq")
     private int id;
     private int serial;
     private int number;

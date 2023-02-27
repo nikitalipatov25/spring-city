@@ -1,10 +1,11 @@
 --liquibase formatted sql
 --changeset nikitalipatov:create-tables
+--rollback drop table car, house, house_person, passport, person cascade
 
-create sequence car_seq start with 1 increment by 50;
-create sequence house_seq start with 1 increment by 50;
-create sequence passport_seq start with 1 increment by 50;
-create sequence person_seq start with 1 increment by 50;
+create sequence if not exists car_seq start with 1 increment by 1;
+create sequence if not exists house_seq start with 1 increment by 1;
+create sequence if not exists passport_seq start with 1 increment by 1;
+create sequence if not exists person_seq start with 1 increment by 1;
 
 create table car (
                     id integer not null,
@@ -26,10 +27,10 @@ create table house (
                    );
 
 create table house_person (
-                    p_id integer not null,
-                    h_id integer not null,
-                    primary key (p_id, h_id)
-                          );
+                    person_id integer not null,
+                    house_id integer not null,
+                    primary key (person_id, house_id)
+                    );
 
 create table passport (
                     id integer not null,
@@ -54,10 +55,10 @@ create table person (
                     );
 
 alter table if exists car
-    add constraint FKlxtq8nj0f29fesfbvvotkjn6t foreign key (person_id) references person;
+    add constraint person foreign key (person_id) references person;
 alter table if exists house_person
-    add constraint FKf6d48dayi7qhr3naqaith9tky foreign key (h_id) references house;
+    add constraint house foreign key (house_id) references house;
 alter table if exists house_person
-    add constraint FKhjs0hfjlwouoinf6jmj1phc7v foreign key (p_id) references person;
+    add constraint person foreign key (person_id) references person;
 alter table if exists person
-    add constraint FKpm70pbnghc1m7eq6n4jf5fkd foreign key (passport_id) references passport;
+    add constraint passport foreign key (passport_id) references passport
