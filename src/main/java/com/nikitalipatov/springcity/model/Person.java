@@ -11,12 +11,6 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
-//@NamedNativeQuery(name = "Person.findByFullName",
-//        query = "SELECT car.id, car. color, car.model, car.gos_number " +
-//                "FROM car_person " +
-//                "JOIN car ON car.id = car_person.c_id " +
-//                "JOIN person ON person.id = car_person.p_id " +
-//                "WHERE person.full_name = ?1")
 @Entity
 @Table(name ="person")
 @AllArgsConstructor
@@ -52,7 +46,7 @@ public class Person {
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
-    private Set<Bank> bank;
+    private Set<BankAccount> bankAccount;
 
     public Person(String fullName, int age, Passport passport) {
         this.fullName = fullName;

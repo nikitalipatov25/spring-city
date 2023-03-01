@@ -15,11 +15,11 @@ public interface CarService {
 
     CarDto create(int personId, CarRecord carRecord);
 
+    List<Integer> create(List<CarRecord> carRecord);
+
     void deleteCar(int carId);
 
-    CarDto edit(int carId, CarRecord carRecord);
+    CarDto editCar(int carId, CarRecord carRecord);
 
     Car getCar(int carId);
-
-    Set<Car> createCarSet (List<CarRecord> carRecordList, CarShop carShop);
 }

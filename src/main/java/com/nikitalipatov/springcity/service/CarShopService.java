@@ -1,18 +1,20 @@
 package com.nikitalipatov.springcity.service;
 
-import com.nikitalipatov.springcity.dto.CarDto;
-import com.nikitalipatov.springcity.dto.CarRecord;
-import com.nikitalipatov.springcity.dto.CarShopDto;
-import com.nikitalipatov.springcity.dto.CarShopRecord;
+import com.nikitalipatov.springcity.dto.*;
 import com.nikitalipatov.springcity.model.CarShop;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface CarShopService {
 
-    CarShopDto addCar (int carShopId, CarShopRecord carShopRecord);
+    CarShopDto addCar (int carShopId, List<Integer> carIds);
 
-    CarShopDto create(CarShopRecord carShopRecord);
+    CarShopDto create(String shopMame);
 
     CarShop getCarShop(int carShopId);
 
-    String preorderStatus();
+    PreorderResultDto preorderCar(int carShopId, int carId, PreorderRecord preorderRecord) throws ExecutionException, InterruptedException;
+
+    CarShopResponseDto getPreorder(int requestId);
 }

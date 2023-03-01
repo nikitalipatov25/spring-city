@@ -18,8 +18,14 @@ public class CarController {
 
     @PostMapping(value = "/create/{userId}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public CarDto create(@PathVariable int userId, @RequestBody CarRecord carRecord) {
+    public CarDto createCars(@PathVariable int userId, @RequestBody CarRecord carRecord) {
         return carService.create(userId, carRecord);
+    }
+
+    @PostMapping(value = "/create")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public List<Integer> createCars(@RequestBody List<CarRecord> carRecord) {
+        return carService.create(carRecord);
     }
 
     @GetMapping(value = "/list")
@@ -37,6 +43,6 @@ public class CarController {
     @PutMapping(value = "/edit/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public CarDto edit(@PathVariable int id, @RequestBody CarRecord carRecord) {
-        return carService.edit(id, carRecord);
+        return carService.editCar(id, carRecord);
     }
 }

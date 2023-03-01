@@ -15,11 +15,11 @@ public class BankController {
 
     @PostMapping(value = "/person/{personId}/create_account")
     public BankDto createAccount(@PathVariable int personId, @RequestBody BankRecord bankRecord) {
-        return bankService.createAccount(personId, bankRecord);
+        return bankService.createPersonAccount(personId, bankRecord);
     }
 
-    @PutMapping(value = "/founds/add")
-    public BankDto addFounds(@RequestBody BankRecord bankRecord) {
-        return bankService.addFounds(bankRecord);
+    @PutMapping(value = "/{accountId}/add/{amount}")
+    public BankDto addFounds(@PathVariable int accountId, @PathVariable double amount) {
+        return bankService.changeBalance(accountId, amount);
     }
 }

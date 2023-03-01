@@ -3,13 +3,13 @@ package com.nikitalipatov.springcity.service.impl;
 import com.nikitalipatov.springcity.converter.CarConverter;
 import com.nikitalipatov.springcity.dto.CarDto;
 import com.nikitalipatov.springcity.dto.CarRecord;
-import com.nikitalipatov.springcity.dto.CarShopRecord;
 import com.nikitalipatov.springcity.exeption.ResourceNotFoundException;
 import com.nikitalipatov.springcity.model.Car;
 import com.nikitalipatov.springcity.model.CarShop;
 import com.nikitalipatov.springcity.repository.CarRepository;
 import com.nikitalipatov.springcity.repository.PersonRepository;
 import com.nikitalipatov.springcity.service.CarService;
+import com.nikitalipatov.springcity.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,21 +23,31 @@ import java.util.Set;
 public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
-    private final CarConverter converter;
-    private final PersonRepository personRepository;
+    private final CarConverter carConverter;
+    private final PersonService personService;
 
     @Override
     public List<CarDto> getAll() {
-        return converter.toDto(carRepository.findAll());
+        return carConverter.toDto(carRepository.findAll());
     }
 
     @Override
     @Transactional
     public CarDto create(int personId, CarRecord carRecord) {
         Car car = new Car(carRecord.gosNumber(), carRecord.model(), carRecord.type(), carRecord.color(), carRecord.name());
-        car.setPerson(personRepository.findById(personId).get());
+        car.setPerson(personService.getPerson(personId));
         System.out.println(car);
-        return converter.toDto(carRepository.save(car));
+        return carConverter.toDto(carRepository.save(car));
+    }
+
+    @Override
+    @Transactional
+    public List<Integer> create(List<CarRecord> carRecords) {
+        var cars = carConverter.toEntity(carRecords);
+        carRepository.saveAll(cars);
+        return cars.stream()
+                .map((Car::getId))
+                .toList();
     }
 
     @Override
@@ -48,9 +58,9 @@ public class CarServiceImpl implements CarService {
 
     @Override
     @Transactional
-    public CarDto edit(int carId, CarRecord carRecord) {
+    public CarDto editCar(int carId, CarRecord carRecord) {
         Car car = getCar(carId);
-        return converter.toDto(carRepository.save(converter.toEntity(car, carRecord)));
+        return carConverter.toDto(carRepository.save(carConverter.toEntity(car, carRecord)));
     }
 
     @Override
@@ -58,15 +68,5 @@ public class CarServiceImpl implements CarService {
         return carRepository.findById(carId).orElseThrow(
                 () -> new ResourceNotFoundException("No such car with id " + carId)
         );
-    }
-
-    @Override
-    @Transactional
-    public Set<Car> createCarSet (List<CarRecord> carRecordList, CarShop carShop) {
-        Set<Car> carSet = new HashSet<>();
-        for (int i = 0; i < carRecordList.size(); i++) {
-            carSet.add(carRepository.save(converter.toEntity(new Car(), carRecordList.get(i), carShop)));
-        }
-        return carSet;
     }
 }

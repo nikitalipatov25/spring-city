@@ -21,13 +21,13 @@ public class ControllerExceptionHandler {
                 request.getDescription(false));
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
-//        return new ErrorMessage(
-//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-//                new Date(),
-//                ex.getMessage(),
-//                request.getDescription(false));
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessage globalExceptionHandler(Exception ex, WebRequest request) {
+        return new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+    }
 }

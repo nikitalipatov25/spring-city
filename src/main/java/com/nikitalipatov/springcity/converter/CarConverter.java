@@ -24,8 +24,8 @@ public class CarConverter {
                 .build();
     }
 
-    public Car toEntity(Car car, CarRecord carRecord, CarShop carShop) {
-        return car.toBuilder()
+    public Car toEntity(CarRecord carRecord, CarShop carShop) {
+        return Car.builder()
                 .color(carRecord.color())
                 .model(carRecord.model())
                 .name(carRecord.name())
@@ -35,6 +35,26 @@ public class CarConverter {
                 .type(carRecord.type())
                 .carShop(carShop)
                 .build();
+    }
+
+    public Car toEntity(CarRecord carRecord) {
+        return Car.builder()
+                .color(carRecord.color())
+                .model(carRecord.model())
+                .name(carRecord.name())
+                .gosNumber(carRecord.gosNumber())
+                .model(carRecord.model())
+                .price(carRecord.price())
+                .type(carRecord.type())
+                .build();
+    }
+
+    public List<Car> toEntity(List<CarRecord> carRecordList) {
+        List<Car> cars = new ArrayList<>();
+        for (CarRecord carRecord : carRecordList) {
+            cars.add(toEntity(carRecord));
+        }
+        return cars;
     }
 
     public CarDto toDto(Car car) {

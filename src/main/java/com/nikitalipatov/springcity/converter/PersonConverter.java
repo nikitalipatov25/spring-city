@@ -24,9 +24,9 @@ public class PersonConverter {
                 .serial(person.getPassport().getSerial())
                 .sex(person.getPassport().getSex())
                 .age(person.getAge())
-                .car(person.getCar() != null ? carConverter.toDto(person.getCar().stream().toList()) : null)
+                .car(person.getCar() != null ? carConverter.toDto(person.getCar().stream().toList()) : null) // todo List.copyOf()
                 .house(person.getHouse() != null ? houseConverter.toDto(person.getHouse().stream().toList()) : null)
-                .bank(person.getBank() != null ? bankConverter.toDto(person.getBank().stream().toList()) : null)
+                .bank(person.getBankAccount() != null ? bankConverter.toDto(person.getBankAccount().stream().toList()) : null)
                 .build();
     }
 
@@ -105,7 +105,7 @@ public class PersonConverter {
         person.setFullName(personRecord.fullName());
         person.setAge(personRecord.age());
 
-        Passport passport = person.getPassport();
+        Passport passport = person.getPassport(); // todo toBuilder()
         passport.setAddress(personRecord.passportRecord().address());
         passport.setAddressFact(personRecord.passportRecord().addressFact());
         passport.setDateOfBirth(personRecord.passportRecord().dateOfBirth());

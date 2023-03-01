@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class BankDto {
 
+    private int accountId;
     private String personName;
     private String bankName;
-    private int bankAccount;
     private double cashAmount;
 }

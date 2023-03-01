@@ -3,33 +3,37 @@ package com.nikitalipatov.springcity.controller;
 import com.nikitalipatov.springcity.dto.*;
 import com.nikitalipatov.springcity.service.CarShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/car_shop")
+@RequestMapping(value = "/api/shop")
 public class CarShopController {
 
     private final CarShopService carShopService;
 
-    @PostMapping(value = "/create")
-    public CarShopDto createCarShop(@RequestBody CarShopRecord carShopRecord) {
-        return carShopService.create(carShopRecord);
+    @PostMapping(value = "/create/{shopName}")
+    public CarShopDto createCarShop(@PathVariable String shopName) {
+        return carShopService.create(shopName);
     }
 
-    @PutMapping(value = "/{carShopId}/add_car")
-    public CarShopDto addCar(@PathVariable int carShopId, @RequestBody CarShopRecord carShopRecord) {
-        return carShopService.addCar(carShopId, carShopRecord);
-    }
-
-    @GetMapping(value = "/preorder/status")
-    public String preorderStatus() {
-        return carShopService.preorderStatus();
+    @PutMapping(value = "/{carShopId}/add")
+    public CarShopDto addCar(@PathVariable int carShopId, @RequestBody List<Integer> carIds) {
+        return carShopService.addCar(carShopId, carIds);
     }
 
     @GetMapping(value = "/{carShopId}/preorder/{carId}")
-    public CarShopResponseDto preorderCar (@PathVariable int carShopId, @PathVariable int carId, @RequestBody PreorderRecord preorderRecord) {
-        preorderStatus();
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public PreorderResultDto preorderStatus(@PathVariable int carShopId, @PathVariable int carId, @RequestBody PreorderRecord preorderRecord) throws ExecutionException, InterruptedException {
         return carShopService.preorderCar(carShopId, carId, preorderRecord);
+    }
+
+    @GetMapping(value = "/preorder/{requestId}")
+    public CarShopResponseDto preorderByRequest(@PathVariable int requestId) {
+        return carShopService.getPreorder(requestId);
     }
 }

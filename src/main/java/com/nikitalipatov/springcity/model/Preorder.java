@@ -1,8 +1,7 @@
 package com.nikitalipatov.springcity.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.nikitalipatov.springcity.enums.PreorderStatus;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -13,13 +12,16 @@ import lombok.*;
 @Setter
 @Builder(toBuilder = true)
 public class Preorder {
+
     @Id
     private int id;
+    @Enumerated(EnumType.STRING)
+    private PreorderStatus bankPreorderStatus;
+    @Enumerated(EnumType.STRING)
+    private PreorderStatus GAIPreorderStatus;
+    @Enumerated(EnumType.STRING)
+    private PreorderStatus drivingSchoolPreorderStatus;
+    private int personId;
+    private int carId;
 
-    private String preorderStatus;
-    // v rabote, uspesho, ne uspeshno
-
-    private String preorderResult;
-    //мэппинг с  юзером мэни ту ван
-    private int userId;
 }

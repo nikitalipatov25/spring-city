@@ -1,5 +1,6 @@
 package com.nikitalipatov.springcity.dto;
 
+import com.nikitalipatov.springcity.enums.PreorderStatus;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarShopResponseDto {
-
-    private String shopResponse;
+    private boolean success;
+    private PreorderStatus bankPreorderStatus;
+    private PreorderStatus GAIPreorderStatus;
+    private PreorderStatus drivingSchoolPreorderStatus;
+    private String message;
 }

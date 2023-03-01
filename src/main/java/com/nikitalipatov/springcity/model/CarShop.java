@@ -8,7 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import java.util.Set;
 
 @Entity
-@Table(name = "car_shop")
+@Table(name = "shop")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

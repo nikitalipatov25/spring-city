@@ -1,4 +1,4 @@
 package com.nikitalipatov.springcity.dto;
 
-public record PreorderRecord(int userId, int userBankAccount, int userDrivingLicense) {
+public record PreorderRecord(int personId, String personName, int userBankAccount, int userDrivingLicense) {
 }

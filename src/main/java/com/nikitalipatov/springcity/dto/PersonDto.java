@@ -1,6 +1,5 @@
 package com.nikitalipatov.springcity.dto;
 
-import com.nikitalipatov.springcity.model.Bank;
 import lombok.*;
 
 import java.util.List;

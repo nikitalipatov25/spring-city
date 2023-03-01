@@ -10,7 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-public class Bank {
+public class BankAccount {
     @Id
     @SequenceGenerator(name = "bank_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bank_seq")
@@ -18,18 +18,14 @@ public class Bank {
 
     private String name;
 
-    private double amount;
-
-    @Column(unique = true)
-    private int account;
+    private double balance;
 
     @ManyToOne()
     @JoinColumn(name = "person_id")
     private Person person;
 
-    public Bank(String name, double amount, int account) {
+    public BankAccount(String name, double balance) {
         this.name = name;
-        this.amount = amount;
-        this.account = account;
+        this.balance = balance;
     }
 }
